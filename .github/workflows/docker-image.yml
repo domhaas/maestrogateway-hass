@@ -14,6 +14,6 @@ jobs:
         docker build . --tag ghcr.io/domhaas/maestrogateway-hassio:latest
         docker push ghcr.io/domhaas/maestrogateway-hassio:latest
         with:
-          username: ${{ github.actor }}
+          username: ${{ secrets.USERNAME }}
           password: ${{ secrets.GHCR_TOKEN }}
 
