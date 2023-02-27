@@ -13,7 +13,7 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
-          password: ${{ secrets.GHCR_TOKEN }}
+          password: ${{ secrets.GITHUB_TOKEN }}
       - uses: actions/checkout@v3
       - name: create image from repository
         run: docker build . --tag ghcr.io/domhaas/maestrogateway-hassio:latest
