@@ -17,5 +17,4 @@ jobs:
     - name: Build the Docker image
       run: |
         docker build . --tag ghcr.io/domhaas/maestrogateway-hassio:latest
-        docker run ghcr.io/domhaas/maestrogateway-hassio:latest
         docker push ghcr.io/domhaas/maestrogateway-hassio:latest
