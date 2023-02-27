@@ -1,0 +1,14 @@
+---
+configuration:
+  log_level:
+    name: Log-Level
+  mcz_ip:
+    name: MCZ IP-Address
+  mcz_port:
+    name: MCZ Port
+  mqtt_topic_sub:
+    name: Sub-Topic
+  mqtt_topic_pub:
+    name: Pub-Topic
+  mqtt_payload_type:
+    name: Payload-Type

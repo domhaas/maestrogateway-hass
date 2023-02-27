@@ -1,0 +1,29 @@
+name: "maestrogateway"
+description: "MCZ Maestro Equipment Gateway with Mqtt / JSON"
+version: "1.0.4"
+slug: "maestrogateway"
+url: https://github.com/hassio-addons/addon-example
+codenotary: rage@cloudwar.de
+init: false
+arch:
+  - aarch64
+  - amd64
+  - armhf
+  - armv7
+  - i386
+services:
+  - mqtt:need
+options:
+  mcz_ip: "192.168.120.1"
+  mcz_port: 81
+  mqtt_topic_sub: "Maestro/Command/"
+  mqtt_topic_pub: "Maestro/"
+  mqtt_payload_type: "TOPIC"
+  log_level: "INFO"
+schema:
+  mcz_ip: str
+  mcz_port: int
+  mqtt_topic_sub: str
+  mqtt_topic_pub: str
+  mqtt_payload_type: list(TOPIC|JSON)
+  log_level: list(DEBUG|INFO|WARNING|ERROR|CRITICAL)
