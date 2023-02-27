@@ -8,13 +8,14 @@ jobs:
   build-and-publish:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - name: Build the Docker image
-      run: |
-        docker build . --tag ghcr.io/domhaas/maestrogateway-hassio:latest
-        docker push ghcr.io/domhaas/maestrogateway-hassio:latest
+      - name: login to GitHub Container Registry
+        uses: docker/login-action@v1
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GHCR_TOKEN }}
-
+      - uses: actions/checkout@v3
+      - name: create image from repository
+        run: docker build . --tag ghcr.io/domhaas/maestrogateway-hassio:latest
+      - name: push image to GitHub Container Registry
+        run: docker push ghcr.io/domhaas/maestrogateway-hassio:latest
