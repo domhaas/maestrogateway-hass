@@ -5,14 +5,15 @@ on:
   pull_request:
     branches: [ "main" ]
 jobs:
-  build:
+  build-and-publish:
     runs-on: ubuntu-latest
-    with:
-      username: ${{ github.actor }}
-      password: ${{ secrets.GITHUB_TOKEN }}
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
       run: |
         docker build . --tag ghcr.io/domhaas/maestrogateway-hassio:latest
         docker push ghcr.io/domhaas/maestrogateway-hassio:latest
+        with:
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
