@@ -22,7 +22,7 @@ jobs:
         id: yaml-data
         uses: jbutcher5/read-yaml@main
         with:
-          file: '/config.yaml'
+          file: './maestrogateway/config.yaml'
           key-path: '["version"]'
       - name: create image from repository
         run: docker build . --tag ghcr.io/domhaas/maestrogateway-hassio:latest
