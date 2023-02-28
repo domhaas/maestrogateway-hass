@@ -25,6 +25,6 @@ jobs:
           file: './maestrogateway/config.yaml'
           key-path: '["version"]'
       - name: create image from repository
-        run: docker build . --tag ghcr.io/domhaas/maestrogateway-hassio:latest
+        run: docker build . --tag "ghcr.io/domhaas/maestrogateway-hassio:${{ steps.yaml-data.outputs.data }}"
       - name: push image to GitHub Container Registry
         run: docker push "ghcr.io/domhaas/maestrogateway-hassio:${{ steps.yaml-data.outputs.data }}"
