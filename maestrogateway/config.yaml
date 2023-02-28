@@ -3,7 +3,7 @@ description: "MCZ Maestro Equipment Gateway with Mqtt / JSON"
 version: "1.0.5"
 slug: "maestrogateway"
 url: https://github.com/hassio-addons/addon-example
-image: ghcr.io/domhaas/maestrogateway-hassio
+image: "ghcr.io/domhaas/maestrogateway-hassio:latest"
 codenotary: rage@cloudwar.de
 init: false
 arch:
