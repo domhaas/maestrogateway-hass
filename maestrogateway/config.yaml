@@ -4,7 +4,6 @@ version: "1.0.5"
 slug: "maestrogateway"
 url: https://github.com/hassio-addons/addon-example
 image: ghcr.io/domhaas/maestrogateway-hassio
-codenotary: rage@cloudwar.de
 init: false
 arch:
   - amd64
