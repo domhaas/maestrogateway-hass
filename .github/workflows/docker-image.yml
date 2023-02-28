@@ -20,7 +20,13 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - uses: actions/checkout@v3
+      - name: Get Version-Tag
+        id: yaml-data
+        uses: jbutcher5/read-yaml@main
+        with:
+          file: './config.yaml'
+          key-path: '["version"]'
       - name: create image from repository
         run: docker build . --tag ghcr.io/domhaas/maestrogateway-hassio:latest
       - name: push image to GitHub Container Registry
-        run: docker push ghcr.io/domhaas/maestrogateway-hassio:latest
+        run: docker push "ghcr.io/domhaas/maestrogateway-hassio:${{ steps.yaml-data.outputs.data }}"
