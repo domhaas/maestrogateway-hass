@@ -2,8 +2,10 @@ name: Docker Image CI
 on:
   push:
     branches: [ "stable" ]
+    paths-ignore: [ '.github/**' ]
   pull_request:
     branches: [ "stable" ]
+    paths-ignore: [ '.github/**' ]
 defaults:
   run:
     working-directory: maestrogateway
