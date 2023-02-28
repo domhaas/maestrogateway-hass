@@ -1,5 +1,5 @@
 {
-  "name": "Home Assistant Add-ons",
-  "url": "https://github.com/domhaas/hassio-addons",
+  "name": "maestrogateway",
+  "url": "https://github.com/domhaas/maestrogateway-hassio",
   "maintainer": "Dominik Haas <rage@cloudwar.de>"
 }
