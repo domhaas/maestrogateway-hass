@@ -50,6 +50,7 @@ client = None
 old_connection_status = None
 
 # Logging
+logger = logging.getLogger(__name__)
 CommandQueue = SetQueue()
 MaestroInfoMessageCache = {}
 
