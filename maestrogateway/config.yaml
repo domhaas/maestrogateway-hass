@@ -1,6 +1,6 @@
 name: "maestrogateway"
 description: "MCZ Maestro Equipment Gateway with Mqtt / JSON"
-version: "1.0.5"
+version: "1.0.6"
 slug: "maestrogateway"
 url: https://github.com/hassio-addons/addon-example
 image: ghcr.io/domhaas/maestrogateway-hassio
