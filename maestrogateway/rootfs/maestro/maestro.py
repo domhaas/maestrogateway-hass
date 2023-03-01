@@ -6,6 +6,7 @@ import sys
 import os
 import json
 import logging
+import coloredlogs
 import threading
 import paho.mqtt.client as mqtt
 import websocket
@@ -51,6 +52,7 @@ old_connection_status = None
 
 # Logging
 logger = logging.getLogger(__name__)
+coloredlogs.install(level=os.getenv('LOG_LEVEL'), logger=logger)
 CommandQueue = SetQueue()
 MaestroInfoMessageCache = {}
 
