@@ -1,16 +1,41 @@
 #!/usr/bin/python3
 # coding: utf-8
+print("Starting Maestrogateway.")
 
 import time
 import sys
 import os
+
+systemd_available = True
+try:
+    import systemd
+    from systemd.journal import JournalHandler
+    from systemd import daemon
+    import psutil, os
+except:
+  print("Systemd is not available. This is the case on docker alpine images and on windows machines")
+  systemd_available = False
+
 import json
 import logging
-import coloredlogs
 import threading
 import paho.mqtt.client as mqtt
 import websocket
+
+from logging.handlers import RotatingFileHandler
 from messages import MaestroMessageType, process_infostring, get_maestro_info, get_maestro_infoname, MAESTRO_INFORMATION, MaestroInformation
+
+from _config_ import _MCZport
+from _config_ import _MCZip
+from _config_ import _MQTT_pass
+from _config_ import _MQTT_user
+from _config_ import _MQTT_authentication
+from _config_ import _MQTT_TOPIC_PUB, _MQTT_TOPIC_SUB, _MQTT_PAYLOAD_TYPE
+from _config_ import _WS_RECONNECTS_BEFORE_ALERT
+from _config_ import _MQTT_port
+from _config_ import _MQTT_ip
+from _config_ import _VERSION
+
 from commands import MaestroCommand, get_maestro_command, maestrocommandvalue_to_websocket_string, MaestroCommandValue, MAESTRO_COMMANDS
 
 try:
@@ -52,9 +77,27 @@ old_connection_status = None
 
 # Logging
 logger = logging.getLogger(__name__)
-coloredlogs.install(level=os.getenv('LOG_LEVEL'), logger=logger)
+logger.setLevel(logging.INFO)
+formatter = logging.Formatter('%(asctime)s :: %(name)s :: %(levelname)s :: %(message)s')
+if systemd_available and psutil.Process(os.getpid()).ppid() == 1:
+    # We are using systemd
+    journald_handler=JournalHandler()
+    logger.addHandler(journald_handler)
+else:
+    file_handler = RotatingFileHandler('activity.log', 'a', 1000000, 1)
+    file_handler.setLevel(logging.INFO)
+    file_handler.setFormatter(formatter)
+    logger.addHandler(file_handler)
+stream_handler = logging.StreamHandler(sys.stdout)
+stream_handler.setFormatter(formatter)
+stream_handler.setLevel(logging.INFO)
+logger.addHandler(stream_handler)
+
 CommandQueue = SetQueue()
 MaestroInfoMessageCache = {}
+
+# Start
+logger.info('Starting Maestro Daemon')
 
 def on_connect_mqtt(client, userdata, flags, rc):
     logger.info("MQTT: Connected to broker. " + str(rc))
@@ -94,7 +137,7 @@ def on_message_mqtt(client, userdata, message):
         else:
             logger.debug('Queueing Command ' + maestrocommand.name + ' ' + str(payload))
             CommandQueue.put(MaestroCommandValue(maestrocommand, cmd_value))
-    except Exception as e:
+    except Exception as e: # work on python 3.x
             logger.error('Exception in on_message_mqtt: '+ str(e))
 
 def recuperoinfo_enqueue():
@@ -147,10 +190,10 @@ def on_message(ws, message):
     elif message_array[0] == MaestroMessageType.StringData.value:
         logger.info('Date Time Set ' + str(message_array[1]))
     else:
-        logger.error('Unsupported message type received!')
+        logger.info('Unsupported message type received !')
 
 def on_error(ws, error):
-    logger.error(error)
+    logger.info(error)
 
 def on_close(ws, close_status_code, close_msg):
     logger.info('Websocket: Disconnected')
@@ -184,7 +227,7 @@ def start_mqtt():
                 _MQTT_ip + ' PORT:'+str(_MQTT_port)+')')
     client = mqtt.Client(client_id="MCZ_PelletStove")
     if _MQTT_authentication:
-        logger.info('mqtt authentication enabled')
+        print('mqtt authentication enabled')
         client.username_pw_set(username=_MQTT_user, password=_MQTT_pass)
     client.on_connect = on_connect_mqtt
     client.on_disconnect = on_disconnect_mqtt
@@ -242,14 +285,14 @@ def init_config():
     
     global _MCZport
     _MCZport = os.getenv('MCZport')
-        
     
 if __name__ == "__main__":
     init_config()        
     recuperoinfo_enqueue()
     socket_reconnect_count = 0
     start_mqtt()
-
+    if systemd_available:
+        systemd.daemon.notify('READY=1')
     while True:
         logger.info("Websocket: Establishing connection to server (IP:"+_MCZip+" PORT:"+_MCZport+")")
         ws = websocket.WebSocketApp("ws://" + _MCZip + ":" + _MCZport,
