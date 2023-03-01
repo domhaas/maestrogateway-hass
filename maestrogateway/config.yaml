@@ -12,6 +12,8 @@ services:
 options:
   mcz_ip: "192.168.120.1"
   mcz_port: 81
+  mqtt_username:
+  mqtt_password:
   mqtt_topic_sub: "Maestro/Command/"
   mqtt_topic_pub: "Maestro/"
   mqtt_payload_type: "TOPIC"
@@ -19,6 +21,8 @@ options:
 schema:
   mcz_ip: str
   mcz_port: int
+  mqtt_username: str
+  mqtt_password: str
   mqtt_topic_sub: str
   mqtt_topic_pub: str
   mqtt_payload_type: list(TOPIC|JSON)
