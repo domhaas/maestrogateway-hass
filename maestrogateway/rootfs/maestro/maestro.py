@@ -193,20 +193,20 @@ def start_mqtt():
     client.loop_start()
 
 def publish_availabletopics():  
-    ##logger.info(_MQTT_TOPIC_PUB + 'state')  
+    logger.info(_MQTT_TOPIC_PUB + 'state')  
     # Publish topics that have stat and command
     for item in MAESTRO_INFORMATION:
-        ##logger.info(_MQTT_TOPIC_PUB + item.name)        
+        logger.info(_MQTT_TOPIC_PUB + item.name)        
         maestrocommand = get_maestro_command(item.name)        
-        ##if maestrocommand.name != "Unknown":
-            ##logger.info(_MQTT_TOPIC_SUB + item.name)  
+        if maestrocommand.name != "Unknown":
+            logger.info(_MQTT_TOPIC_SUB + item.name)  
 
     # publish topics that have command only
     for item in MAESTRO_COMMANDS:
         homeassistanttype = 'sensor'   
         maestroinfo = get_maestro_infoname(item.name)
-        ##if maestroinfo.name == "Unknown":
-            ##logger.info(_MQTT_TOPIC_SUB + item.name) 
+        if maestroinfo.name == "Unknown":
+            logger.info(_MQTT_TOPIC_SUB + item.name) 
 
 def init_config():
     print('Reading config from envionment variables')
