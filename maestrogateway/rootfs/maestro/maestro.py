@@ -25,17 +25,6 @@ import websocket
 from logging.handlers import RotatingFileHandler
 from messages import MaestroMessageType, process_infostring, get_maestro_info, get_maestro_infoname, MAESTRO_INFORMATION, MaestroInformation
 
-from _config_ import _MCZport
-from _config_ import _MCZip
-from _config_ import _MQTT_pass
-from _config_ import _MQTT_user
-from _config_ import _MQTT_authentication
-from _config_ import _MQTT_TOPIC_PUB, _MQTT_TOPIC_SUB, _MQTT_PAYLOAD_TYPE
-from _config_ import _WS_RECONNECTS_BEFORE_ALERT
-from _config_ import _MQTT_port
-from _config_ import _MQTT_ip
-from _config_ import _VERSION
-
 from commands import MaestroCommand, get_maestro_command, maestrocommandvalue_to_websocket_string, MaestroCommandValue, MAESTRO_COMMANDS
 
 try:
