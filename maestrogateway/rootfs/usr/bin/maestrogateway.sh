@@ -3,8 +3,8 @@
 bashio::log.info "Starting maestrogateway..."
 
 export LOG_LEVEL=$(bashio::config 'log_level')
-export MQTT_ip=$(bashio::services mqtt "host")
-export MQTT_port=$(bashio::services mqtt "port")
+export MQTT_ip=$(bashio::config 'mqtt_host')
+export MQTT_port=$(bashio::config 'mqtt_port')
 export MQTT_authentication=True
 export MQTT_user=$(bashio::config 'mqtt_username')
 export MQTT_pass=$(bashio::config 'mqtt_password')

@@ -1,6 +1,6 @@
 name: "maestrogateway"
 description: "MCZ Maestro Equipment Gateway with Mqtt / JSON"
-version: "1.0.6"
+version: "1.0.7"
 slug: "maestrogateway"
 url: https://github.com/hassio-addons/addon-example
 image: ghcr.io/domhaas/maestrogateway-hassio
@@ -12,6 +12,8 @@ services:
 options:
   mcz_ip: "192.168.120.1"
   mcz_port: 81
+  mqtt_host:
+  mqtt_port: 1883
   mqtt_username:
   mqtt_password:
   mqtt_topic_sub: "Maestro/Command/"
@@ -21,6 +23,8 @@ options:
 schema:
   mcz_ip: str
   mcz_port: int
+  mqtt_host: str
+  mqtt_port: int
   mqtt_username: str
   mqtt_password: str
   mqtt_topic_sub: str
