@@ -281,7 +281,7 @@ def init_config():
     
 if __name__ == "__main__":
     init_config()
-    logger.info("Waiting " + int(_STARTUP_wait) + " seconds")
+    logger.info("Waiting " + _STARTUP_wait + " seconds")
     time.sleep(int(_STARTUP_wait))
     recuperoinfo_enqueue()
     socket_reconnect_count = 0
