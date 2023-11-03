@@ -244,7 +244,7 @@ def init_config():
     print('Reading config from envionment variables')
 
     global _STARTUP_wait
-    _STARTUP_wait = int(os.getenv('STARTUP_wait'))
+    _STARTUP_wait = os.getenv('STARTUP_wait')
 
     global _MQTT_ip
     _MQTT_ip = os.getenv('MQTT_ip')
@@ -281,7 +281,8 @@ def init_config():
     
 if __name__ == "__main__":
     init_config()
-    time.sleep(_STARTUP_wait)
+    logger.info("Waiting " + int(_STARTUP_wait) + " seconds")
+    time.sleep(int(_STARTUP_wait))
     recuperoinfo_enqueue()
     socket_reconnect_count = 0
     start_mqtt()
