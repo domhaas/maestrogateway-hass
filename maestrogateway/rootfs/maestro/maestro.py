@@ -280,8 +280,8 @@ def init_config():
     _MCZport = os.getenv('MCZport')
     
 if __name__ == "__main__":
+    init_config()
     time.sleep(_STARTUP_wait)
-    init_config()        
     recuperoinfo_enqueue()
     socket_reconnect_count = 0
     start_mqtt()
