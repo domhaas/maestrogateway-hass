@@ -244,7 +244,7 @@ def init_config():
     print('Reading config from envionment variables')
 
     global _STARTUP_wait
-    _STARTUP_wait = os.getenv('STARTUP_wait')
+    _STARTUP_wait = int(os.getenv('STARTUP_wait'))
 
     global _MQTT_ip
     _MQTT_ip = os.getenv('MQTT_ip')
