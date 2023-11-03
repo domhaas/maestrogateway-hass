@@ -289,13 +289,13 @@ if __name__ == "__main__":
     if systemd_available:
         systemd.daemon.notify('READY=1')
     while True:
+        publish_availabletopics()
         logger.info("Websocket: Establishing connection to server (IP:"+_MCZip+" PORT:"+_MCZport+")")
         ws = websocket.WebSocketApp("ws://" + _MCZip + ":" + _MCZport,
                                     on_message=on_message,
                                     on_error=on_error,
                                     on_close=on_close)
         ws.on_open = on_open
-
         ws.run_forever(ping_interval=5, ping_timeout=2, suppress_origin=True)
         time.sleep(1)
         socket_reconnect_count = socket_reconnect_count + 1
