@@ -8,7 +8,7 @@ RUN chmod +x /usr/bin/maestrogateway.sh
 
 RUN apk add --no-cache \
     coreutils=9.1-r0 \
-    wget=1.21.3-r2 \
+    wget=1.21.4-r0 \
     py3-pip
 
 COPY ./requirements.txt /requirements.txt
