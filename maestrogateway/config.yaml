@@ -10,6 +10,7 @@ arch:
 services:
   - mqtt:need
 options:
+  startup_wait: 10
   mcz_ip: "192.168.120.1"
   mcz_port: 81
   mqtt_host:
@@ -21,6 +22,7 @@ options:
   mqtt_payload_type: "TOPIC"
   log_level: "INFO"
 schema:
+  startup_wait: int
   mcz_ip: str
   mcz_port: int
   mqtt_host: str

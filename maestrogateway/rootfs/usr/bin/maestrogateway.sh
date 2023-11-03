@@ -2,6 +2,7 @@
 
 bashio::log.info "Starting maestrogateway..."
 
+export STARTUP_wait=$(bashio::config 'startup_wait')
 export LOG_LEVEL=$(bashio::config 'log_level')
 export MQTT_ip=$(bashio::config 'mqtt_host')
 export MQTT_port=$(bashio::config 'mqtt_port')
